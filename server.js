@@ -10,7 +10,7 @@ CLIENT.on('message', async (msg) => {
         var config = JSON.parse(process.env.APP_CONFIG);
     
         await MongoClient.connect(
-        "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString,async (err, client) => {
+        "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString, async function(err, client) {
             if(!err) {
                 let db = await client.db('d1153a5b46c1ff42fd56fcf2d1a70a99');
                 let result = await db.collection('bowled').findOne({user_id: author.id});
