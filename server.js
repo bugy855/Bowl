@@ -36,12 +36,10 @@ async function bowlUser(name) {
     MongoClient.connect(
         "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString, (err, client) => {
             if(!err) {
-                client.db('d1153a5b46c1ff42fd56fcf2d1a70a99').collection('bowled').insertOne({user: name});
-                client.close;
-                res.end("user was bowled");
-            } else {
-                res.end("Error while connecting to MongoDB");
-            }
+                const db = client.db('d1153a5b46c1ff42fd56fcf2d1a70a99');
+                db.collection('bowled').insertOne({user: name});
+                client.close; 
+            } 
         }
     );
 }
@@ -52,7 +50,8 @@ async function findUser(name) {
     await MongoClient.connect(
         "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString,async (err, client) => {
             if(!err) {
-                await client.db('d1153a5b46c1ff42fd56fcf2d1a70a99').collection('bowled').findOne({user: name}).then(result => {
+                const db = await client.db('d1153a5b46c1ff42fd56fcf2d1a70a99');
+                await db.collection('bowled').findOne({user: name}).then(result => {
                     if(result){
                         return true;
                     } else {
@@ -60,10 +59,7 @@ async function findUser(name) {
                     }
                 });
                 client.close;
-                res.end("User was processed");
-            } else {
-                res.end("Error while connecting to MongoDB");
-            }
+            } 
         }
     );
 }
