@@ -50,7 +50,7 @@ async function findUser(name) {
     var config = JSON.parse(process.env.APP_CONFIG);
     
     await MongoClient.connect(
-        "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString, (err, db) => {
+        "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString,async (err, db) => {
             if(!err) {
                 await db.collection('bowled').findOne({user: name}).then(result => {
                     if(result){
