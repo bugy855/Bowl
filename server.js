@@ -17,7 +17,6 @@ CLIENT.on('message', async (msg) => {
             });
 
             bowled = true;
-            break;
         }         
     
         if(!bowled){
