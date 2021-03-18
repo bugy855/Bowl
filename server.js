@@ -38,7 +38,7 @@ async function bowlUser(name) {
             if(!err) {
                 const db = client.db('d1153a5b46c1ff42fd56fcf2d1a70a99');
                 db.collection('bowled').insertOne({user: name});
-                client.close; 
+                client.close(); 
             } 
         }
     );
@@ -58,7 +58,7 @@ async function findUser(name) {
                         return false;
                     }
                 });
-                client.close;
+                client.close();
             } 
         }
     );
