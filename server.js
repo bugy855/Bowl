@@ -11,6 +11,7 @@ CLIENT.on('message', async (msg) => {
         var bowled = false;
          
         if(await findUser(author)){
+            console.log(await findUser(author));
             member = msg.member;
             member.kick().then(() => {
                 msg.reply(' has been added to the bowl');
@@ -33,12 +34,14 @@ CLIENT.login(process.env.TOKEN).then(() => {
 async function bowlUser(name) {
     var config = JSON.parse(process.env.APP_CONFIG);
     
-    MongoClient.connect(
-        "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString, (err, client) => {
+    await MongoClient.connect(
+        "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString,async (err, client) => {
             if(!err) {
-                const db = client.db('d1153a5b46c1ff42fd56fcf2d1a70a99');
-                db.collection('bowled').insertOne({user: name});
-                client.close(); 
+                const db = await client.db('d1153a5b46c1ff42fd56fcf2d1a70a99');
+                await db.collection('bowled').insertOne({user: name}).then(() => {
+                    console.log(name);
+                    client.close();     
+                })
             } 
         }
     );
@@ -51,14 +54,13 @@ async function findUser(name) {
         "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString,async (err, client) => {
             if(!err) {
                 const db = await client.db('d1153a5b46c1ff42fd56fcf2d1a70a99');
-                await db.collection('bowled').findOne({user: name}).then(result => {
-                    if(result){
-                        return true;
-                    } else {
-                        return false;
-                    }
-                });
+                let result = await db.collection('bowled').findOne({user: name});
                 client.close();
+                if(result){
+                    return true;
+                } else {
+                    return false;
+                }
             } 
         }
     );
