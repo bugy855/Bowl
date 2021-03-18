@@ -56,8 +56,10 @@ async function findUser(id) {
                 client.close();
                 console.log(result);
                 if(result.user_id == id){
+                    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
                     return true;
                 } else {
+                    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
                     return false;
                 }
             } 
