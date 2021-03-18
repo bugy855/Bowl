@@ -33,8 +33,8 @@ CLIENT.login(process.env.TOKEN).then(() => {
 async function bowlUser(id) {
     var config = JSON.parse(process.env.APP_CONFIG);
     
-    await MongoClient.connect(
-        "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString,async (err, client) => {
+    MongoClient.connect(
+        "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString, (err, client) => {
             if(!err) {
                 const db = await client.db('d1153a5b46c1ff42fd56fcf2d1a70a99');
                 await db.collection('bowled').insertOne({user_id: id}).then(() => {
@@ -49,7 +49,7 @@ async function bowlUser(id) {
 async function findUser(id) {
     var config = JSON.parse(process.env.APP_CONFIG);
     
-    await MongoClient.connect(
+    MongoClient.connect(
         "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString,async (err, client) => {
             if(!err) {
                 const db = await client.db('d1153a5b46c1ff42fd56fcf2d1a70a99');
