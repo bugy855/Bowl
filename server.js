@@ -3,8 +3,6 @@ const DISCORD = require('discord.js');
 const CLIENT = new DISCORD.Client();
 const MongoClient = require('mongodb').MongoClient;
 
-var badbois = [];
-
 CLIENT.on('message', async (msg) => {
     if(!msg.author.bot && msg.content.toLowerCase() != 'bowl'){
         const author = msg.author;
@@ -56,6 +54,7 @@ async function findUser(id) {
                 const db = await client.db('d1153a5b46c1ff42fd56fcf2d1a70a99');
                 let result = await db.collection('bowled').findOne({user_id: id});
                 client.close();
+                console.log(result);
                 if(result){
                     return true;
                 } else {
