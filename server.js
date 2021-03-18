@@ -7,7 +7,7 @@ CLIENT.on('message', async (msg) => {
     if(!msg.author.bot && msg.content.toLowerCase() != 'bowl'){
         const author = msg.author;
         var bowled = false;
-        await findUser(author.id).then(userExist => {
+        findUser(author.id).then(userExist => {
             console.log(userExist); 
             if(userExist){
                 member = msg.member;
@@ -34,7 +34,7 @@ async function bowlUser(id) {
     var config = JSON.parse(process.env.APP_CONFIG);
     
     MongoClient.connect(
-        "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString, (err, client) => {
+        "mongodb://" + config.mongo.user + ":" + encodeURIComponent(process.env.MONGO_PASSWORD) + "@" + config.mongo.hostString,async (err, client) => {
             if(!err) {
                 const db = await client.db('d1153a5b46c1ff42fd56fcf2d1a70a99');
                 await db.collection('bowled').insertOne({user_id: id}).then(() => {
