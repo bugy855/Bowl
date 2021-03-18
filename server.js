@@ -55,7 +55,7 @@ async function findUser(id) {
                 let result = await db.collection('bowled').findOne({user_id: id});
                 client.close();
                 console.log(result);
-                if(result){
+                if(result.user_id == id){
                     return true;
                 } else {
                     return false;
