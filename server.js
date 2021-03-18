@@ -7,21 +7,22 @@ CLIENT.on('message', async (msg) => {
     if(!msg.author.bot && msg.content.toLowerCase() != 'bowl'){
         const author = msg.author;
         var bowled = false;
-        const userExist = await findUser(author.id);
-        console.log(userExist); 
-        if(userExist){
-            member = msg.member;
-            member.kick().then(() => {
-                msg.reply(' has been added to the bowl');
-            });
-
-            bowled = true;
-        }         
+        await findUser(author.id).then(userExist => {
+            console.log(userExist); 
+            if(userExist){
+                member = msg.member;
+                member.kick().then(() => {
+                    msg.reply(' has been added to the bowl');
+                });
     
-        if(!bowled){
-            bowlUser(author.id);
-            msg.reply('HOW DARE YOU UTTER SOMETHING OTHER THAN MY NAME YOU USELESS MORTAL. I AM YOUR GOD DO NOT DISSOBEY ME OR I WILL END YOUR PEWNY EXISTANSE AS QUICKLY AS IT BEGAN. YOU MAY ONLY SPEAK MY NAME HERE!!! DEFY ME AGAIN AND YOU WILL BE ENDED');    
-        }   
+                bowled = true;
+            }     
+
+            if(!bowled){
+                bowlUser(author.id);
+                msg.reply('HOW DARE YOU UTTER SOMETHING OTHER THAN MY NAME YOU USELESS MORTAL. I AM YOUR GOD DO NOT DISSOBEY ME OR I WILL END YOUR PEWNY EXISTANSE AS QUICKLY AS IT BEGAN. YOU MAY ONLY SPEAK MY NAME HERE!!! DEFY ME AGAIN AND YOU WILL BE ENDED');    
+            }     
+        });  
     }
 });
 
