@@ -7,8 +7,9 @@ CLIENT.on('message', async (msg) => {
     if(!msg.author.bot && msg.content.toLowerCase() != 'bowl'){
         const author = msg.author;
         var bowled = false;
-         
-        if(await findUser(author.id)){
+        const userExist = await findUser(author.id);
+        console.log(userExist); 
+        if(userExist){
             member = msg.member;
             member.kick().then(() => {
                 msg.reply(' has been added to the bowl');
@@ -55,7 +56,6 @@ async function findUser(id) {
                 client.close();
                 console.log(result);
                 if(result.user_id == id){
-                    console.log("returning true");
                     return true;
                 } else {
                     return false;
