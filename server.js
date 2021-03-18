@@ -9,7 +9,6 @@ CLIENT.on('message', async (msg) => {
         var bowled = false;
          
         if(await findUser(author.id)){
-            console.log(await findUser(author));
             member = msg.member;
             member.kick().then(() => {
                 msg.reply(' has been added to the bowl');
@@ -56,6 +55,7 @@ async function findUser(id) {
                 client.close();
                 console.log(result);
                 if(result.user_id == id){
+                    console.log("returning true");
                     return true;
                 } else {
                     return false;
