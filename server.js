@@ -16,7 +16,7 @@ CLIENT.on('message', async (msg) => {
                 let result = await db.collection('bowled').findOne({user_id: id});
                 client.close();
                 console.log(result);
-                if(result.user_id == id){
+                if(result.user_id == author.id){
                     member = msg.member;
                     member.kick().then(() => {
                     msg.reply(' has been added to the bowl');
