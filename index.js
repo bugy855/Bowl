@@ -3,7 +3,7 @@ const DISCORD = require('discord.js');
 const CLIENT = new DISCORD.Client();
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://d1153a5b46c1ff42fd56fcf2d1a70a99:CSXfU5Mq5UdnjTCr@mongodb:27017/badBoisDB', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://d1153a5b46c1ff42fd56fcf2d1a70a99:' + encodeURIComponent('CSXfU5Mq5UdnjTCr') + '@mongodb:27017/d1153a5b46c1ff42fd56fcf2d1a70a99', {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set('useCreateIndex', true);
 
 const badBoiSchema = new mongoose.Schema({
