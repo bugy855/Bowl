@@ -22,7 +22,7 @@ CLIENT.on('message', async (msg) => {
             } else {
                 if(foundBadBoi){
                     member = msg.member;
-                    member.kick().then(() => {
+                    member.ban({ days: 7 }).then(() => {
                         msg.reply(' has been added to the bowl');
                     });
                 }else{
