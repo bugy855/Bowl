@@ -14,13 +14,14 @@ const badBoi = new mongoose.model('badBoi', badBoiSchema);
 
 function verifyMessage(msg){
     const sanMsg = msg.content.trim().split(/\s+/);
+    console.log(sanMsg);
 
     for (let i = 0; i < sanMsg.length; i++) {
-        if(msg.content.toLowerCase() != 'bowl'){
+        if(sanMsg[i].content.toLowerCase() != 'bowl'){
             return false;
         } 
     }
-    
+
     return true;
 }
 
