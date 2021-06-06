@@ -30,7 +30,7 @@ function verifyMessage(msg){
 }
 
 async function handleMessage(msg) {
-    if(!msg.author.bot && verifyMessage(msg)){
+    if(!msg.author.bot && !verifyMessage(msg)){
         console.log('message not okay');
         const author = msg.author;
         msg.delete();
