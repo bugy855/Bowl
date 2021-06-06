@@ -24,6 +24,7 @@ function verifyMessage(msg){
         } 
     }
 
+    console.log(verified);
     return verified;
 }
 
