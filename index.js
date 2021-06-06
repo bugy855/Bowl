@@ -44,9 +44,7 @@ async function handleMessage(msg) {
     }
 }
 
-CLIENT.on('message', async (msg) => {
-    handleMessage(msg);
-});
+CLIENT.on('message', handleMessage(msg));
 
 CLIENT.on('messageUpdate', async (oldmsg,newmsg) => {
     handleMessage(newmsg);
