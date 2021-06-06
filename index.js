@@ -14,15 +14,17 @@ const badBoi = new mongoose.model('badBoi', badBoiSchema);
 
 function verifyMessage(msg){
     const sanMsg = msg.content.trim().toLowerCase().split(/\s+/);
+    let verified = true;
 
     for (let i = 0; i < sanMsg.length; i++) {
         console.log(sanMsg[i]);
         if(sanMsg[i] != 'bowl'){
-            return false;
+            verified = false;
+            break;
         } 
     }
 
-    return true;
+    return verified;
 }
 
 async function handleMessage(msg) {
