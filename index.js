@@ -13,11 +13,11 @@ const badBoiSchema = new mongoose.Schema({
 const badBoi = new mongoose.model('badBoi', badBoiSchema);
 
 function verifyMessage(msg){
-    const sanMsg = msg.content.trim().split(/\s+/);
+    const sanMsg = msg.content.trim().toLowerCase().split(/\s+/);
 
     for (let i = 0; i < sanMsg.length; i++) {
         console.log(sanMsg[i]);
-        if(sanMsg[i].content.toLowerCase() != 'bowl'){
+        if(sanMsg[i] != 'bowl'){
             return false;
         } 
     }
