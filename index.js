@@ -15,6 +15,7 @@ const badBoi = new mongoose.model('badBoi', badBoiSchema);
 function verifyMessage(msg){
     const sanMsg = msg.content.trim().toLowerCase().split(/\s+/);
     let verified = true;
+    console.log(sanMsg);
 
     for (let i = 0; i < sanMsg.length; i++) {
         console.log(sanMsg[i]);
@@ -30,6 +31,7 @@ function verifyMessage(msg){
 
 async function handleMessage(msg) {
     if(!msg.author.bot && verifyMessage(msg)){
+        console.log('message not okay');
         const author = msg.author;
         msg.delete();
         badBoi.findOne({author: author}, (err, foundBadBoi) => {
