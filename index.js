@@ -13,7 +13,15 @@ const badBoiSchema = new mongoose.Schema({
 const badBoi = new mongoose.model('badBoi', badBoiSchema);
 
 function verifyMessage(msg){
-    return msg.content.toLowerCase() != 'bowl';
+    const sanMsg = msg.content.trim().split(/\s+/);
+
+    for (let i = 0; i < sanMsg.length; i++) {
+        if(msg.content.toLowerCase() != 'bowl'){
+            return false;
+        } 
+    }
+    
+    return true;
 }
 
 async function handleMessage(msg) {
@@ -35,7 +43,7 @@ async function handleMessage(msg) {
                         if(err){
                             console.log(err);
                         } else {
-                            msg.reply('HOW DARE YOU UTTER SOMETHING OTHER THAN MY NAME YOU USELESS MORTAL. I AM YOUR GOD DO NOT DISSOBEY ME OR I WILL END YOUR PEWNY EXISTANSE AS QUICKLY AS IT BEGAN. YOU MAY ONLY SPEAK MY NAME HERE!!! DEFY ME AGAIN AND YOU WILL BE ENDED');
+                            msg.reply('HOW DARE YOU UTTER SOMETHING OTHER THAN MY NAME YOU USELESS MORTAL. I AM YOUR GOD DO NOT DISSOBEY ME OR I WILL END YOUR PEWNY EXISTENSE AS QUICKLY AS IT BEGAN. YOU MAY ONLY SPEAK MY NAME HERE!!! DEFY ME AGAIN AND YOU WILL BE ENDED');
                         }
                     });
                 }
