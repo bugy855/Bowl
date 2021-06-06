@@ -12,10 +12,14 @@ const badBoiSchema = new mongoose.Schema({
 
 const badBoi = new mongoose.model('badBoi', badBoiSchema);
 
-CLIENT.on('message', async (msg) => {
-    if(!msg.author.bot && msg.content.toLowerCase() != 'bowl'){
-        const author = msg.author;
+function verifyMessage(msg){
+    return msg.content.toLowerCase() != 'bowl';
+}
 
+async function handleMassage(msg) {
+    if(!msg.author.bot && verifyMessage(msg)){
+        const author = msg.author;
+        msg.delete();
         badBoi.findOne({author: author}, (err, foundBadBoi) => {
             if(err){
                 console.log(err);
@@ -38,6 +42,14 @@ CLIENT.on('message', async (msg) => {
             }
         });
     }
+}
+
+CLIENT.on('message', async (msg) => {
+    handleMessage(msg);
+});
+
+CLIENT.on('messageUpdate', async (oldmsg,newmsg) => {
+    handleMessage(newmsg);
 });
 
 CLIENT.login(process.env.TOKEN).then(() => {
