@@ -16,7 +16,7 @@ function verifyMessage(msg){
     return msg.content.toLowerCase() != 'bowl';
 }
 
-async function handleMassage(msg) {
+async function handleMessage(msg) {
     if(!msg.author.bot && verifyMessage(msg)){
         const author = msg.author;
         msg.delete();
